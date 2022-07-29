@@ -24,7 +24,7 @@ with open('C:/Users/HARPIA_IP_02/PycharmProjects/Kaggle_Tubes_Torax/venv/app_sty
 
 @st.cache(allow_output_mutation=True, max_entries=5)
 def open_main_sheets():
-    sa = gspread.service_account(filename='credenciais.json')
+    sa = gspread.service_account(secrets.CREDENCIAIS)
     sh = sa.open('Pessoas_App')
     db = sh.worksheet('Cadastro')
     db = pd.DataFrame(db.get_all_records())
