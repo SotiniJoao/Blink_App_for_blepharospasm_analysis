@@ -3,28 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - ca-certificates=2021.10.8=h5b45459_0
-  - dlib=19.23.1=py37h53cf009_0
-  - intel-openmp=2022.0.0=h57928b3_3663
-  - jpeg=9e=h8ffe710_1
-  - libblas=3.9.0=14_win64_mkl
-  - libcblas=3.9.0=14_win64_mkl
-  - liblapack=3.9.0=14_win64_mkl
-  - libpng=1.6.37=h1d00b33_2
-  - libzlib=1.2.11=h8ffe710_1014
-  - mkl=2022.0.0=h0e2418a_796
-  - openssl=3.0.2=h8ffe710_1
-  - pip=22.0.4=pyhd8ed1ab_0
-  - python=3.7.12=h900ac77_100_cpython
-  - python_abi=3.7=2_cp37m
-  - setuptools=62.1.0=py37h03978a9_0
-  - sqlite=3.37.1=h8ffe710_0
-  - tbb=2021.5.0=h2d74725_1
-  - ucrt=10.0.20348.0=h57928b3_0
-  - vc=14.2=hb210afc_6
-  - vs2015_runtime=14.29.30037=h902a5da_6
-  - wheel=0.37.1=pyhd8ed1ab_0
-  - zlib=1.2.11=h8ffe710_1014
+  - dlib=19.23.1
   - pip:
     - absl-py==1.0.0
     - alabaster==0.7.12
