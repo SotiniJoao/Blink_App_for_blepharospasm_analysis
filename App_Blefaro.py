@@ -18,7 +18,7 @@ import seaborn as sns
 import re
 
 st.set_page_config(page_title='Blink App', layout="centered", page_icon=":eye:")
-with open('C:/Users/HARPIA_IP_02/PycharmProjects/Kaggle_Tubes_Torax/venv/app_styles.css') as f:
+with open('app_styles.css') as f:
     st.markdown(f"""<style>{f.read()}</style>""", unsafe_allow_html=True)
 
 
@@ -74,7 +74,7 @@ if 'run' not in st.session_state:
 if 'p_db' not in st.session_state:
     st.session_state.p_db = 0
 
-imagem = Image.open("C:/Users/HARPIA_IP_02/PycharmProjects/Kaggle_Tubes_Torax/venv/Unifesp_simples_policromia_RGB.png")
+imagem = Image.open("Unifesp_simples_policromia_RGB.png")
 imagem = imagem.resize((960, 250))
 db, sh = open_main_sheets()
 
