@@ -44,7 +44,7 @@ def open_main_sheets():
     return db, sh
 
 @st.cache(allow_output_mutation=True, max_entries=5, hash_funcs={open_main_sheets: id})
-def open_personal_db(open_main_sheets:sh, ids):
+def open_personal_db(sh, ids):
     personal_db_raw = open_credencials(sh, ids)
     personal_db = pd.DataFrame(personal_db_raw.get_all_records())
     return personal_db, personal_db_raw
