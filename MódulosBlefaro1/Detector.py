@@ -149,7 +149,7 @@ def Captura(captura, thresh):
                 total2 += 1
                 cont2 = 0
             holder.image(cap, use_column_width=True)
-        if limitante == 120:
+        if limitante == 60:
             time.sleep(2)
             msg.write("### Charts")
             # fft = np.abs(np.fft.fft(vet))
