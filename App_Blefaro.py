@@ -35,7 +35,7 @@ credenciais = {
 }
 
 
-@st.cache(allow_output_mutation=True, max_entries=5, supress_st_warning=True)
+@st.cache(allow_output_mutation=True, max_entries=5)
 def open_main_sheets():
     sa = gspread.service_account_from_dict(credenciais)
     sh = sa.open('Pessoas_App')
