@@ -103,14 +103,14 @@ if c == "Home":
                 "To assess treatment response, João Luiz Sotini da Silva, a student of Biomedical Engineering, guided by Dr. Regina Célia Coelho, developed this app to facilitate and monitor patient's analysis.")
         with st.expander('Purpose'):
             st.write(
-                'O app vem com a intenção de reduzir o esforço de diagnosticar a doença em um estágio inicial, para que o tratamento seja feito o mais rápido possível. Nesse intuito, o app é disponibilizado '
-                'tanto para computadores quanto para dispositivos móveis, a fim de atingir o maior número de pacientes da doença o possível.')
-        with st.expander('How does it works'):
+                'The app comes with the intention of reducing the effort to diagnose the disease at an early stage, so that treatment can be done as quickly as possible. To this end, the app is made available '
+                'for both computers and mobile devices, in order to reach as many patients of the disease as possible.')
+        with st.expander('How it works'):
             st.write(
-                'Para utilizar o app, primeiro faça o seu cadastro na aba "Criar Cadastro". Depois é só realizar seu login com usuário e senha, e você será redirecionado para uma página contendo uma barra com 3 '
-                'opções: Pré Tratamento, Pós Tratamento e Video em Tempo Real. Escolha uma das três opções (nas primeiras duas, é necessário baixar um arquivo de vídeo) para começar a realizar a análise.'
-                ' Para melhores resultados, grave o vídeo em uma posição confortável, com luz e tente não se mexer muito para que o algoritmo de reconhecimento possa captar a imagem da melhor forma. '
-                'Bom proveito!')
+                'To use the app, first make your registration in the "Create Registration" tab. Then just login with your username and password, and you will be redirected to a page containing a bar with 3 '
+                ' options: Pre Treatment, Post Treatment and Real Time Video. Choose one of the three options (for the first two, you need to download a video file) to start performing the analysis.'
+                 ' For best results, record the video in a comfortable, light position and try not to move too much so that the recognition algorithm can best capture the image. '
+                'Enjoy!'
 
 elif c == "Analysis":
     db, sh = open_main_sheets()
@@ -126,7 +126,7 @@ elif c == "Analysis":
     if st.session_state.check == 0:
         st.image(imagem, use_column_width=True)
         st.write('## Blefaro App')
-        st.image(Image.open("C:/Users/HARPIA_IP_02/Desktop/Videos/istockphoto-485347378-170667a.jpg"),use_column_width=True)
+        st.image(Image.open("istockphoto-485347378-170667a.jpg"),use_column_width=True)
         st.subheader('Log-in to begin the analysis!')
         name = ""
         password = ""
