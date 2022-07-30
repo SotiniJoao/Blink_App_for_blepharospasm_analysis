@@ -43,7 +43,7 @@ def open_main_sheets():
     db = pd.DataFrame(db.get_all_records())
     return db, sh
 
-@st.cache(allow_output_mutation=True, max_entries=5, hash_func={open_main_sheets: id})
+@st.cache(allow_output_mutation=True, max_entries=5, hash_funcs={open_main_sheets: id})
 def open_personal_db(open_main_sheets:sh, ids):
     personal_db_raw = open_credencials(sh, ids)
     personal_db = pd.DataFrame(personal_db_raw.get_all_records())
