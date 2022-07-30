@@ -150,7 +150,6 @@ def Captura(captura, thresh):
                 cont2 = 0
             holder.image(cap, use_column_width=True)
         if limitante == 120:
-            cv2.destroyAllWindows()
             time.sleep(2)
             msg.write("### Charts")
             # fft = np.abs(np.fft.fft(vet))
