@@ -109,7 +109,7 @@ if c == "Home":
             st.write(
                 'To use the app, first make your registration in the "Create Registration" tab. Then just login with your username and password, and you will be redirected to a page containing a bar with 3 '
                 ' options: Pre Treatment, Post Treatment and Real Time Video. Choose one of the three options (for the first two, you need to download a video file) to start performing the analysis.'
-                 ' For best results, record the video in a comfortable, light position and try not to move too much so that the recognition algorithm can best capture the image. 
+                 ' For best results, record the video in a comfortable, light position and try not to move too much so that the recognition algorithm can best capture the image.'
                     'Enjoy!')
 
 elif c == "Analysis":
