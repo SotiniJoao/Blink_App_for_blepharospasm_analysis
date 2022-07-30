@@ -21,10 +21,23 @@ st.set_page_config(page_title='Blink App', layout="centered", page_icon=":eye:")
 with open('app_styles.css') as f:
     st.markdown(f"""<style>{f.read()}</style>""", unsafe_allow_html=True)
 
+credenciais = {
+  "type": st.secrets.sheets_api_credencials.type,
+  "project_id": st.secrets.sheets_api_credencials.project_id,
+  "private_key_id": st.secrets.sheets_api_credencials.private_key_id,
+  "private_key": st.secrets.sheets_api_credencials.private_key,
+  "client_email": st.secrets.sheets_api_credencials.client_email,
+  "client_id": st.secrets.sheets_api_credencials.client_id,
+  "auth_uri": st.secrets.sheets_api_credencials.auth_uri,
+  "token_uri": st.secrets.sheets_api_credencials.token_uri,
+  "auth_provider_x509_cert_url": st.secrets.sheets_api_credencials.auth_provider_x509_cert_url,
+  "client_x509_cert_url": st.secrets.sheets_api_credencials.client_x509_cert_url
+}
+
 
 @st.cache(allow_output_mutation=True, max_entries=5)
 def open_main_sheets():
-    sa = gspread.service_account(secrets.CREDENCIAIS)
+    sa = gspread.service_account(credenciais)
     sh = sa.open('Pessoas_App')
     db = sh.worksheet('Cadastro')
     db = pd.DataFrame(db.get_all_records())
