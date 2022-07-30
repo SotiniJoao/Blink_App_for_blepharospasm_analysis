@@ -42,7 +42,7 @@ def calibragem(captura):
     q = 0
     msg = st.empty()
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor("C:/Users/HARPIA_IP_02/PycharmProjects/MaskRCNN/eye_predictor.dat")
+    predictor = dlib.shape_predictor("eye_predictor.dat")
     (lStart, lEnd) = (0, 6)
     (rStart, rEnd) = (6, 12)
     while True:
@@ -86,7 +86,7 @@ def calibragem(captura):
 
 def Captura(captura, thresh):
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor("C:/Users/HARPIA_IP_02/PycharmProjects/MaskRCNN/eye_predictor.dat")
+    predictor = dlib.shape_predictor("eye_predictor.dat")
     if captura.get(cv2.CAP_PROP_FRAME_COUNT) > 0:
         frame_counter = 0  # Or whatever as long as it is the same as next line
         captura.set(cv2.CAP_PROP_POS_FRAMES, 0)
