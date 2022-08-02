@@ -7,3 +7,5 @@ For the database, I used google docs to store all patients data, to enable histo
 Machine Learn model as the main resource of the app, focused in properly tracking the disease.
 
 I also adapted some code from pyimagesearch in https://pyimagesearch.com/2021/04/19/face-detection-with-dlib-hog-and-cnn/. 
+
+The app is now avaible at https://sotinijoao-blink-app-for-blepharospasm-analy-app-blefaro-934pn9.streamlitapp.com/
