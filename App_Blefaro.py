@@ -165,7 +165,7 @@ elif c == "Analysis":
                     pre = {'Data': datetime.datetime.today().strftime("%d/%m/%Y"), 'EAR1': str(olhoe),
                            'EAR2': str(olhod), 'Piscadas': [total], 'Estágio': 'pre', 'Taxa de Frames': str(txdeframes),
                            'Limiar': str([thresh])}
-                    st.button('Register Data', on_click=register, args=[p_dbr, pre])
+                    st.button('Register Data', on_click=register, args=[p_dbr, pre], key=secrets.token_hex(20))
             st.button("Quit", on_click=quit, args=[0])
         elif select == 'Post-treatment':
             st.write("### Upload the video below:")
@@ -174,7 +174,7 @@ elif c == "Analysis":
             msg.write("### Click start to initiate the 1 minute video:")
             video = tempfile.NamedTemporaryFile(delete=False)
             botao = st.empty()
-            botao.button("Start", on_click=iniciar, args=[1])
+            botao.button("Start", on_click=iniciar, args=[1], key='button1')
             while st.session_state.run == 1:
                 botao.button('Stop', on_click=stop, key=secrets.token_hex(15))
                 msg.empty()
@@ -194,8 +194,8 @@ elif c == "Analysis":
                            'EAR2': str(olhod), 'Piscadas': [total], 'Estágio': 'post', 'Taxa de Frames': str(txdeframes),
                            'Limiar': str([thresh])}
 
-                    st.button('Register Data', on_click=register, args=[p_dbr, pos])
-            st.button("Quit", on_click=quit, args=[0])
+                    st.button('Register Data', on_click=register, args=[p_dbr, pos],key=secrets.token_hex(20))
+            st.button("Quit", on_click=quit, args=[0], key=secrets.token_hex(20))
         elif select == 'History':
             st.write('## History')
             st.dataframe(st.session_state.p_db[['Data', 'Piscadas', 'Estágio', 'EAR1', 'EAR2']].style.set_properties(
