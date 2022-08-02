@@ -143,8 +143,9 @@ elif c == "Analysis":
             video_file = st.file_uploader('Pre-treatment diagnosis video', type=['MOV', 'MP4'])
             msg = st.empty()
             msg.write("### Click start to initiate the 1 minute video:")
-            video_file = video_file.decode()
             video = tempfile.NamedTemporaryFile(delete=False)
+            if video is not None:
+                video_file = video_file.decode()
             botao = st.empty()
             botao.button("Start", on_click=iniciar, args=[1], key='iniciar')
             while st.session_state.run == 1:
@@ -174,7 +175,8 @@ elif c == "Analysis":
             msg = st.empty()
             msg.write("### Click start to initiate the 1 minute video:")
             video = tempfile.NamedTemporaryFile(delete=False)
-            video_file = video_file.decode()
+            if video_file is not None:
+                video_file = video_file.decode()
             botao = st.empty()
             botao.button("Start", on_click=iniciar, args=[1], key='button1')
             while st.session_state.run == 1:
