@@ -144,8 +144,6 @@ elif c == "Analysis":
             msg = st.empty()
             msg.write("### Click start to initiate the 1 minute video:")
             video = tempfile.NamedTemporaryFile(delete=False)
-            if video is not None:
-                video_file = video_file.decode()
             botao = st.empty()
             botao.button("Start", on_click=iniciar, args=[1], key='iniciar')
             while st.session_state.run == 1:
@@ -175,8 +173,6 @@ elif c == "Analysis":
             msg = st.empty()
             msg.write("### Click start to initiate the 1 minute video:")
             video = tempfile.NamedTemporaryFile(delete=False)
-            if video_file is not None:
-                video_file = video_file.decode()
             botao = st.empty()
             botao.button("Start", on_click=iniciar, args=[1], key='button1')
             while st.session_state.run == 1:
