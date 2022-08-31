@@ -12,7 +12,6 @@ import datetime
 from test_credenciais import *
 import gspread
 import secrets
-from streamlit.experimental_memo import clear
 from streamlit.scriptrunner import RerunException
 import seaborn as sns
 import re
@@ -52,7 +51,7 @@ def open_personal_db(sh, ids):
 
 def register(p_db, values):
     insert_values(p_db, values)
-    clear()
+    st.experimental_memo.clear()
     st.experimental_rerun()
     succs = st.success('Dados Registrados!')
 
@@ -279,5 +278,5 @@ elif c == "Register":
                 st.error('Insert password')
             else:
                 create_credencials(sh, dados)
-                clear()
+                st.experimental_memo.clear()
                 st.experimental_rerun()
