@@ -12,7 +12,7 @@ import datetime
 from test_credenciais import *
 import gspread
 import secrets
-from streamlit.script_runner import RerunException
+#from streamlit.script_runner import RerunException
 import seaborn as sns
 import re
 
