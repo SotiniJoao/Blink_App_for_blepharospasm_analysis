@@ -12,7 +12,7 @@ import datetime
 from test_credenciais import *
 import gspread
 import secrets
-from streamlit.legacy_caching import caching
+from streamlit.experimental_memo import clear
 from streamlit.scriptrunner import RerunException
 import seaborn as sns
 import re
@@ -52,7 +52,7 @@ def open_personal_db(sh, ids):
 
 def register(p_db, values):
     insert_values(p_db, values)
-    caching.clear_cache()
+    clear()
     st.experimental_rerun()
     succs = st.success('Dados Registrados!')
 
@@ -254,6 +254,7 @@ elif c == "Register":
             if senha == verificasenha:
                 dados = {'Login': logincadastro, 'Nome': nome1, 'Sobrenome': nome2, 'Idade': [idade], 'Cidade': cidade,
                          'Senha': [senha], 'ID': secrets.token_hex(10)}
+             
             else:
                 st.error("The passwords don't match.")
         else:
@@ -278,5 +279,5 @@ elif c == "Register":
                 st.error('Insert password')
             else:
                 create_credencials(sh, dados)
-                caching.clear_cache()
+                clear()
                 st.experimental_rerun()
