@@ -34,7 +34,7 @@ credenciais = {
 }
 
 
-@st.experimental_memo
+@st.experimental_singleton
 def open_main_sheets():
     sa = gspread.service_account_from_dict(credenciais)
     sh = sa.open('Pessoas_App')
@@ -42,7 +42,7 @@ def open_main_sheets():
     db = pd.DataFrame(db.get_all_records())
     return db, sh
 
-@st.experimental_memo
+@st.experimental_singleton
 def open_personal_db(sh, ids):
     personal_db_raw = open_credencials(sh, ids)
     personal_db = pd.DataFrame(personal_db_raw.get_all_records())
@@ -51,7 +51,7 @@ def open_personal_db(sh, ids):
 
 def register(p_db, values):
     insert_values(p_db, values)
-    st.experimental_memo.clear()
+    st.experimental_singleton.clear()
     st.experimental_rerun()
     succs = st.success('Dados Registrados!')
 
@@ -278,5 +278,5 @@ elif c == "Register":
                 st.error('Insert password')
             else:
                 create_credencials(sh, dados)
-                st.experimental_memo.clear()
+                st.experimental_singleton.clear()
                 st.experimental_rerun()
