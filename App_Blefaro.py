@@ -44,7 +44,7 @@ def open_main_sheets():
 
 @st.experimental_singleton
 def open_personal_db(_sh, _ids):
-    personal_db_raw = open_credencials(sh, ids)
+    personal_db_raw = open_credencials(_sh, _ids)
     personal_db = pd.DataFrame(personal_db_raw.get_all_records())
     return personal_db, personal_db_raw
 
