@@ -43,14 +43,14 @@ def open_main_sheets():
     return db, sh
 
 @st.experimental_singleton
-def open_personal_db(sh, ids):
+def open_personal_db(_sh, _ids):
     personal_db_raw = open_credencials(sh, ids)
     personal_db = pd.DataFrame(personal_db_raw.get_all_records())
     return personal_db, personal_db_raw
 
 
-def register(p_db, values):
-    insert_values(p_db, values)
+def register(_p_db, _values):
+    insert_values(_p_db, _values)
     st.experimental_singleton.clear()
     st.experimental_rerun()
     succs = st.success('Dados Registrados!')
