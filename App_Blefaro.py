@@ -34,7 +34,7 @@ credenciais = {
 }
 
 
-@st.cache(allow_output_mutation=True, max_entries=5)
+@st.experimental_memo
 def open_main_sheets():
     sa = gspread.service_account_from_dict(credenciais)
     sh = sa.open('Pessoas_App')
@@ -42,7 +42,7 @@ def open_main_sheets():
     db = pd.DataFrame(db.get_all_records())
     return db, sh
 
-@st.cache(allow_output_mutation=True, max_entries=5, hash_funcs={gspread.client.Client: id})
+@st.experimental_memo
 def open_personal_db(sh, ids):
     personal_db_raw = open_credencials(sh, ids)
     personal_db = pd.DataFrame(personal_db_raw.get_all_records())
