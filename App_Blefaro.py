@@ -53,6 +53,7 @@ def register(_p_db, _values):
     insert_values(_p_db, _values)
     st.experimental_singleton.clear()
     st.experimental_rerun()
+    st.session_state.p_db, p_dbr = open_personal_db(sh, st.session_state.p_id)
     succs = st.success('Dados Registrados!')
 
 
@@ -66,6 +67,8 @@ def quit(x):
     st.session_state.name = ""
     st.session_state.password = ""
     st.session_state.nome = ""
+    st.session_state.p_id = ""
+    st.session_state.p_db = ""
 
 
 def iniciar(x):
@@ -84,6 +87,8 @@ if 'run' not in st.session_state:
     st.session_state.run = 0
 if 'p_db' not in st.session_state:
     st.session_state.p_db = 0
+if 'p_id' not in st.session_state:
+    st.session_state.p_id = ''
 
 imagem = Image.open("Unifesp_simples_policromia_RGB.png")
 imagem = imagem.resize((960, 250))
@@ -117,7 +122,8 @@ elif c == "Analysis":
         password = st.text_input("Password", "", type='password', key='password')
         for index, n in enumerate(zip(db['Login'].values, db['Senha'].values)):
             if n[0] == name and str(n[1]) == password:
-                st.session_state.p_db, p_dbr = open_personal_db(sh, str(db['ID'][index]))
+                st.session_state.p_id = str(db['ID'][index])
+                st.session_state.p_db, p_dbr = open_personal_db(sh, st.session_state.p_id)
                 st.session_state.check = 1
                 st.session_state.nome = db['Nome'][index]
         submit_button = st.form_submit_button("Login")
@@ -160,9 +166,9 @@ elif c == "Analysis":
                     stframe = st.empty()
                     captura = cv2.VideoCapture(video.name)
                     t = Detector.calibragem(captura)
-                    olhoe, olhod, total, txdeframes, thresh, st.session_state.run = Detector.Captura(captura, t)
+                    olhoe, olhod, total1, total2, txdeframes, thresh, st.session_state.run = Detector.Captura(captura, t)
                     pre = {'Data': datetime.datetime.today().strftime("%d/%m/%Y"), 'EAR1': str(olhoe),
-                           'EAR2': str(olhod), 'Piscadas': [total], 'Estágio': 'pre', 'Taxa de Frames': str(txdeframes),
+                           'EAR2': str(olhod), 'Piscadas': [total1, total2], 'Estágio': 'Pre', 'Taxa de Frames': str(txdeframes),
                            'Limiar': str([thresh])}
                     st.button('Register Data', on_click=register, args=[p_dbr, pre], key=secrets.token_hex(20))
             st.button("Quit", on_click=quit, args=[0])
@@ -188,9 +194,9 @@ elif c == "Analysis":
                     captura1 = cv2.VideoCapture(video.name)
                     captura2 = cv2.VideoCapture(video.name)
                     t = Detector.calibragem(captura1)
-                    olhoe, olhod, total, txdeframes, thresh, st.session_state.run = Detector.Captura(captura2, t)
+                    olhoe, olhod, total1, total2, txdeframes, thresh, st.session_state.run = Detector.Captura(captura2, t)
                     pos = {'Data': datetime.datetime.today().strftime("%d/%m/%Y"), 'EAR1': str(olhoe),
-                           'EAR2': str(olhod), 'Piscadas': [total], 'Estágio': 'post', 'Taxa de Frames': str(txdeframes),
+                           'EAR2': str(olhod), 'Piscadas': [total1, total2], 'Estágio': 'Post', 'Taxa de Frames': str(txdeframes),
                            'Limiar': str([thresh])}
 
                     st.button('Register Data', on_click=register, args=[p_dbr, pos],key=secrets.token_hex(20))
