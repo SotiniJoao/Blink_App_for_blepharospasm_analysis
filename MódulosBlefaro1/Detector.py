@@ -185,4 +185,4 @@ def Captura(captura, thresh):
             st.pyplot(fig3)
             run = 0
             break
-    return olhoe, olhod, total, txdeframes, thresh, run
+    return olhoe, olhod, total1, total2, txdeframes, thresh, run
