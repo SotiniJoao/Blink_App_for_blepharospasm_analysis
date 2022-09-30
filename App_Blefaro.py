@@ -52,7 +52,6 @@ def open_personal_db(_sh, _ids):
 def register(_p_db, _values):
     insert_values(_p_db, _values)
     st.experimental_singleton.clear()
-    st.experimental_rerun()
     st.session_state.p_db, p_dbr = open_personal_db(sh, st.session_state.p_id)
     succs = st.success('Dados Registrados!')
 
