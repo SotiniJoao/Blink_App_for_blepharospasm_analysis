@@ -12,7 +12,6 @@ dbus-python==1.2.18
 decorator==4.4.2
 distlib==0.3.6
 distro==1.7.0
-distro-info===1.1build1
 dlib-bin==19.24.2
 et-xmlfile==1.1.0
 ez-setup==0.9
