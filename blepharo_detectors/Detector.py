@@ -2,7 +2,7 @@ import imutils
 from imutils import face_utils
 import dlib
 import cv2
-from MódulosBlefaro1.EAR import EAR
+from blepharo_detectors.EAR import EAR
 import streamlit as st
 import matplotlib.pyplot as plt
 from scipy.spatial import distance as dist
