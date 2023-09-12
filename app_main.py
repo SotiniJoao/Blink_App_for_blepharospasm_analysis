@@ -29,16 +29,16 @@ credenciais = st.secrets['gcp_service_account']
 
 
 @st.cache_resource
-def open_main_sheets(credenciais):
-    sa = gspread.service_account_from_dict(credenciais)
+def open_main_sheets(_credenciais):
+    sa = gspread.service_account_from_dict(_credenciais)
     sh = sa.open('Pessoas_App')
     db = sh.worksheet('Cadastro')
     db = pd.DataFrame(db.get_all_records())
     return db
 
 @st.cache_resource
-def open_main_sheets_raw(credenciais):
-    sa = gspread.service_account_from_dict(credenciais)
+def open_main_sheets_raw(_credenciais):
+    sa = gspread.service_account_from_dict(_credenciais)
     sh = sa.open('Pessoas_App')
     return sh
 
