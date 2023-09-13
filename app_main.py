@@ -14,7 +14,7 @@ import gspread
 import secrets
 import seaborn as sns
 import re
-# import json
+import json
 import os
 
 st.set_page_config(page_title='Blink App', layout="centered", page_icon=":eye:")
@@ -22,10 +22,10 @@ with open('app_styles.css') as f:
     st.markdown(f"""<style>{f.read()}</style>""", unsafe_allow_html=True)
 
 #If using local credentials, uncomment the following lines and line 17
-# f = open('secrets.json')
-# credenciais = dict(json.load(f))
+f = open('secrets.json')
+credenciais = dict(json.load(f))
 
-credenciais = st.secrets['gcp_service_account']
+# credenciais = st.secrets['gcp_service_account']
 
 
 @st.cache_resource
@@ -141,7 +141,8 @@ elif c == "Analysis":
                 st.session_state.p_db = open_personal_db(sh, st.session_state.p_id)
                 st.session_state.check = 1
                 st.session_state.nome = db['Nome'][index]
-        submit_button = st.form_submit_button("Login")
+        submit_button = st.form_submit_button("Submit")
+    quit_button = st.sidebar.button("Quit", on_click=quit, args=[0], key=secrets.token_hex(20))
     if st.session_state.check == 0:
         st.image(imagem, use_column_width=True)
         st.write('## Blefaro App')
@@ -165,11 +166,8 @@ elif c == "Analysis":
             msg = st.empty()
             msg.write("### Select the type of analysis:")
             analysis_sel = ['Pre-treatment', 'Post-treatment']
-            analysis = st.selectbox("Select the type of analysis:", analysis_sel, key=secrets.token_hex(20))
-            if analysis == 'Pre-treatment':
-                analysis_check = 'pre'
-            else:
-                analysis_check = 'post'
+            analysis = st.selectbox("Select the type of analysis:", analysis_sel)
+            analysis_type = 'post' if analysis == 'Post-treatment' else 'pre'
             msg.write("### Click start to initiate the 1 minute video:")
             video = tempfile.NamedTemporaryFile(delete=False)
             botao = st.empty()
@@ -191,7 +189,7 @@ elif c == "Analysis":
                     t = Detector.calibragem(captura)
                     olhoe, olhod, total1, total2, txdeframes, thresh, st.session_state.run, video_temp = Detector.Captura(captura, t)
                     result_dict = {'Data': datetime.datetime.today().strftime("%d/%m/%Y, %H:%M:%S"), 'EAR1': str(olhoe),
-                           'EAR2': str(olhod), 'Piscadas': [total1, total2], 'Estágio': analysis_check, 'Taxa de Frames': str(txdeframes),
+                           'EAR2': str(olhod), 'Piscadas': [total1, total2], 'Estágio': analysis_type, 'Taxa de Frames': str(txdeframes),
                            'Limiar': str([thresh])}
                     try:
                         botao.empty()
@@ -310,16 +308,41 @@ elif c == "Register":
 elif c == 'Delete Account':
     st.title("Delete Account")
     success_check = 0
-    if st.session_state.check == 0 and success_check == 0:
+    submitted_form = False
+    if st.session_state.check == 0 and success_check == 0 and submitted_form==False:
         st.error("You need to be logged in to delete your account", icon="🚨")
+        st.error("If you are logged in but the page is not updating, click the button below")
+        st.button("Refresh")
+        db = open_main_sheets(credenciais)
+        with st.sidebar.form("form", clear_on_submit=True):
+            name = st.text_input("Login", "", key='name')
+            password = st.text_input("Password", "", type='password', key='password')
+            for index, n in enumerate(zip(db['Login'].values, db['Senha'].values)):
+                if n[0] == name and str(n[1]) == password:
+                    st.session_state.p_id = str(db['ID'][index])
+                    p_dbr = open_personal_db_raw(sh, st.session_state.p_id)
+                    st.session_state.p_db = open_personal_db(sh, st.session_state.p_id)
+                    st.session_state.check = 1
+                    st.session_state.nome = db['Nome'][index]
+                    submited_form = True
+            submit_button = st.form_submit_button("Submit")
+        quit_button = st.sidebar.button("Quit", on_click=quit, args=[0], key=secrets.token_hex(20))
     elif st.session_state.check == 1:
-        st.write(f"Are you sure you want to delete your account, {st.session_state.nome}? All data will be lost in the process.")
+        st.info(f":warning: Are you sure you want to delete your account, {st.session_state.nome}?  All data will be lost in the process :disappointed_relieved:")
         try:
-            st.button("Delete Account", on_click=delete_account, args=[
-                                                                    sh, 
-                                                                    open_personal_db_raw(sh, st.session_state.p_id), 
-                                                                    st.session_state.p_id
-                                                                    ], key=secrets.token_hex(20))
+            button = st.button("Delete Account")
+            if button:
+                st.info("Are you sure?")
+                col1, col2 = st.columns(2)
+                with col1:
+                    button2 = st.button("Confirm",  on_click=delete_account, args=[
+                                                                        sh, 
+                                                                        open_personal_db_raw(sh, st.session_state.p_id), 
+                                                                        st.session_state.p_id
+                                                                        ], key=secrets.token_hex(20))
+                with col2:   
+                    button3 = st.button("Cancel", on_click=quit, args=[0], key=secrets.token_hex(20))
+            
         except Exception as e:
             st.error('Error deleting account', icon="🚨")
             st.error(e)
