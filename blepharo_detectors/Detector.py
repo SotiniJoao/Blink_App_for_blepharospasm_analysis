@@ -100,11 +100,24 @@ def Captura(captura, thresh, fourier=0):
     if captura.get(cv2.CAP_PROP_FRAME_COUNT) > 0:
         frame_counter = 0  # Or whatever as long as it is the same as next line
         captura.set(cv2.CAP_PROP_POS_FRAMES, 0)
+    
+    # Getting threshold for video time
+    fps = captura.get(cv2.CAP_PROP_FPS)
+    totalNoFrames = captura.get(cv2.CAP_PROP_FRAME_COUNT)
+    durationInSeconds = totalNoFrames // fps
+    if durationInSeconds < 60:
+        th_video = durationInSeconds
+    else:
+        th_video = 60
+        
+    # Setting up variables
     (lStart, lEnd) = (0, 6)
     (rStart, rEnd) = (6, 12)
     txdeframes, vet, olhoe, olhod = [], [], [], []
     msg = st.empty()
     cont1, cont2, total1, total2, quadros = 0, 0, 0, 0, 0
+    
+    # Creating video
     ar_frames = 1
     video = []
     holder = st.empty()
@@ -151,7 +164,7 @@ def Captura(captura, thresh, fourier=0):
                 cont2 = 0
             video.append(cap)
             progress_bar.progress(math.ceil(limitante/60 * 100), text=progress_text)
-        if limitante == 60:
+        if limitante == th_video:
             progress_bar.empty()
             progress_bar.success('Video processed!', icon="✅")
             video_temp = write_to_tempfile(video, 30)
