@@ -14,7 +14,7 @@ import gspread
 import secrets
 import seaborn as sns
 import re
-import json
+# import json
 import os
 
 st.set_page_config(page_title='Blink App', layout="centered", page_icon=":eye:")
@@ -22,10 +22,10 @@ with open('app_styles.css') as f:
     st.markdown(f"""<style>{f.read()}</style>""", unsafe_allow_html=True)
 
 #If using local credentials, uncomment the following lines and line 17
-f = open('secrets.json')
-credenciais = dict(json.load(f))
+# f = open('secrets.json')
+# credenciais = dict(json.load(f))
 
-# credenciais = st.secrets['gcp_service_account']
+credenciais = st.secrets['gcp_service_account']
 
 
 @st.cache_resource
