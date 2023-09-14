@@ -14,7 +14,7 @@ import gspread
 import secrets
 import seaborn as sns
 import re
-# import json
+import json
 import os
 
 st.set_page_config(page_title='Blink App', layout="centered", page_icon=":eye:")
@@ -22,10 +22,10 @@ with open('app_styles.css') as f:
     st.markdown(f"""<style>{f.read()}</style>""", unsafe_allow_html=True)
 
 #If using local credentials, uncomment the following lines and line 17
-# f = open('secrets.json')
-# credenciais = dict(json.load(f))
+f = open('secrets.json')
+credenciais = dict(json.load(f))
 
-credenciais = st.secrets['gcp_service_account']
+# credenciais = st.secrets['gcp_service_account']
 
 
 @st.cache_resource
@@ -213,15 +213,18 @@ elif c == "Analysis":
         elif select == 'History':
             p_dbr = open_personal_db_raw(sh, st.session_state.p_id)
             st.title('History')
-            st.dataframe(st.session_state.p_db[['Data', 'Piscadas', 'Estágio', 'EAR1', 'EAR2']].style.set_properties(
-                **{'background-color': 'white',
-                   'color': 'green'}))
+            try:
+                st.dataframe(st.session_state.p_db[['Data', 'Piscadas', 'Estágio', 'EAR1', 'EAR2']].style.set_properties(
+                    **{'background-color': 'white',
+                    'color': 'green'}))
+            except KeyError:
+                st.error("There is still no data for this visualization", icon="🚨")
             st.button("Quit", on_click=quit, args=[0])
         elif select == 'Charts':
             st.title('Charts of History data')
-            data = st.selectbox('Select the date:', np.unique(st.session_state.p_db['Data'].values))
-            stage = st.selectbox('Select the phase:', np.unique(st.session_state.p_db['Estágio'].values))
             try:
+                data = st.selectbox('Select the date:', np.unique(st.session_state.p_db['Data'].values))
+                stage = st.selectbox('Select the phase:', np.unique(st.session_state.p_db['Estágio'].values))
                 earesq, eardir, piscadas, txdeframes, limiar = read_values_from_date(open_personal_db(sh, st.session_state.p_id), data, stage)
             except KeyError:
                 earesq, eardir, piscadas, txdeframes, limiar = None, None, None, None, None
